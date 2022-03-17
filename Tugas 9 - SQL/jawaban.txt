@@ -1,0 +1,108 @@
+1. Membuat database
+#jawab
+
+create database myshop;
+
+
+-------------------------------------------------------------------
+2. Membuat table di dalam database 
+#jawab
+
+create table users(
+    id int(8) auto_increment,
+    name varchar(255),
+    email varchar(255),
+    password varchar(255),
+    primary key(id)
+    )
+    
+create table categories(
+     id int(8) auto_increment,
+     name varchar(255),
+     primary key(id)
+     ); 
+
+create table items(
+     id int(8) auto_increment,
+     name varchar(255),
+     description varchar(255),
+     price int(20),
+     stock int(10),
+     category_id int(8),
+     primary key(id),
+     foreign key(category_id) references categories(id)
+     );
+
+
+
+-------------------------------------------------------------------
+3. Memasukkan Data pada Table
+#jawab
+
+insert into users (name, email, password) values ("John Doe","john@doe.com","john123");
+insert into users (name, email, password) values ("Jane Doe","jane@doe.com","jenita123");
+select * from users;
+
+insert into categories (name) values ("gadget"), ("cloth"), ("men"), ("women"), ("branded");
+select * from categories;
+
+insert into items (name, description, price, stock, category_id) values ("Sumsang b50", "hape keren dari merek sumsang", 4000000, 100, 1);
+insert into items (name, description, price, stock, category_id) values ("Uniklooh", "baju keren dari brand ternama", 500000, 50, 2);
+insert into items (name, description, price, stock, category_id) values ("IMHO Watch", "jam tangan anak yang jujur banget", 2000000, 10, 1);
+select * from items;
+
+
+
+
+
+-------------------------------------------------------------------
+Soal 4 Mengambil Data dari Database 
+
+a. Mengambil data users
+Buatlah sebuah query untuk mendapatkan data seluruh user pada table users. Sajikan semua field pada table users KECUALI password nya.
+#jawab
+
+select name, email from users;
+
+b. Mengambil data items
+Buatlah sebuah query untuk mendapatkan data item pada table items yang memiliki harga di atas 1000000 (satu juta).
+#jawab
+
+select * from items
+where price >  1000000;
+
+Buat sebuah query untuk mengambil data item pada table items yang memiliki name serupa atau mirip (like) dengan kata kunci “uniklo”, “watch”, atau “sang” (pilih salah satu saja).
+#jawab
+select * from items
+where name LIKE "uniklo";
+
+c. Menampilkan data items join dengan kategori
+Buatlah sebuah query untuk menampilkan data items yang dilengkapi dengan data nama kategori di masing-masing items. Berikut contoh tampilan data yang ingin didapatkan
+#jawab
+
+SELECT items.name, items.description, items.price, items.stock, items.category_id, categories.name
+FROM items
+JOIN categories
+ON items.category_id = categories.id ;
+
+
+
+
+-------------------------------------------------------------------
+Soal 5 Mengubah Data dari Database
+Ubahlah data pada table items untuk item dengan nama sumsang harganya (price) menjadi 2500000. Masukkan query pada text jawaban di nomor ke 5.
+
+#jawab
+update items
+set price=2500000
+where name LIKE "Sumsang%";
+SELECT * FROM items WHERE name LIKE "Sumsang%";
+ 
+
+
+
+
+
+
+
+
