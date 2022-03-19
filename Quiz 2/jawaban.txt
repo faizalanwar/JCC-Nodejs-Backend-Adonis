@@ -1,0 +1,196 @@
+1. Ubahlah function berikut menjadi Async Await
+
+const editData = (update) => {
+	fspromise
+		.readFile('data.json')
+		.then((dataJson) => {
+			let data = JSON.parse(dataJson);
+			let updated = { ...data, ...update };
+			return fspromise.writeFile('data.json', JSON.stringify(updated));
+		})
+		.then(() => console.log('updated'))
+		.catch((err) => console.log(err));
+};
+
+
+CATATAN: fspromise adalah function yang berbasis promise
+
+
+// --------------------------------------
+// Jawaban
+// --------------------------------------
+
+const editData = async (update) => {
+    let dataRead = await fspromise.readFile('data.json');
+    let data = JSON.parse(dataRead);
+    let updated = {...data, ...update}
+await fspromise.writeFile('data.json', JSON.stringify(updated));
+    console.log('updated');
+}
+
+
+
+
+
+
+
+
+
+ 2. Pada suatu website terdapat fitur following dan followers pada entity users. 1 user dapat follow ke banyak users lainnya dan juga dapat difollow oleh banyak users lainnya.
+
+Bagaimana diagram yang menurut kalian tepat untuk menggambarkan mekanisme follow seperti penjelasan di atas ?
+
+Gambarlah Desain ERD nya menggunakan mysql workbench atau https://app.diagrams.net. Upload gambar tersebut ke google drive atau kehttps://imgur.com/lalu share link nya di kotak jawaban.
+
+
+
+
+
+
+
+3. Terdapat dua tabel: users dan posts di database dengan data seperti berikut.
+
+id name        email
+1 	John Doe 	john@doe.com
+2 	Jane Doe 	jane@doe.com
+
+id 	title 	body 	user_id
+1 	postingan pertama John 	ini postingan pertama John 	1
+2 	postingan kedua John 	ini postingan kedua John 	1
+
+Tulislah Query untuk mendapatkan data user dengan jumlah postingan yang dia miliki seperti berikut
+name     	post_count
+John Doe 	2
+ 
+
+// --------------------------------------
+// Jawaban
+// --------------------------------------
+
+SELECT users.name, count(posts.title) AS post_count FROM users JOIN posts ON users.id = posts.user_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4. Buatlah sebuah function yang akan mengupdate data dari sebuah object. Function tersebut menerima parameter berupa object berisi update data terbaru.
+
+CATATAN: WAJIB menulis dengan ES6.
+Hint: spread operator, arrow function, enhanced object literals, let, const.
+
+Ubah Menjadi ES6!
+
+var data = {
+	name: 'Bondra',
+	nilai:70,
+	kelas:'Adonis',
+	isLogin:true
+}
+function updateData(update) {
+	//
+}
+
+// TEST CASES
+console.log(updateData({ isLogin: false }))
+// Output : { name: 'Bondra', nilai: 70, kelas: 'Adonis', isLogin: false }
+console.log(updateData({nilai: 65, kelas: 'Laravel'})
+// Output: { name: 'Bondra', nilai: 65, kelas: 'Laravel', isLogin: true }
+
+
+
+
+// --------------------------------------
+// Jawaban
+// --------------------------------------
+
+
+const data = {
+	name: 'Bondra',
+	nilai: 70,
+	kelas: 'Adonis',
+	isLogin: true,
+};
+const updateData = (update) => {
+	let { name, nilai, kelas, isLogin } = { ...update };
+	(name === undefined) ? (data.name = data.name) : (data.name = nilai);
+	(nilai === undefined) ? (data.nilai = data.nilai) : (data.nilai = nilai);
+	(kelas === undefined) ? (data.kelas = data.kelas) : (data.kelas = kelas);
+	(isLogin === undefined) ? (data.isLogin = data.isLogin) : (data.isLogin = isLogin);
+	return data;
+};
+
+// TEST CASES
+console.log(updateData({ isLogin: false }));
+// Output : { name: 'Bondra', nilai: 70, kelas: 'Adonis', isLogin: false }
+
+// console.log(updateData({ nilai: 65, kelas: 'Laravel' }));
+// Output: { name: 'Bondra', nilai: 65, kelas: 'Laravel', isLogin: true }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5. Tulislah class javascript yang berisi method-method untuk mengolah tipe data string di antaranya : pengecekkan palindrome*dan mengubah huruf kapital.
+*Palindrome adalah kata yang jika dibalik akan menghasilkan kata yang persis sama.
+
+class OlahString {
+	// code kamu di sini
+}
+
+Contoh Penggunaan class nya seperti berikut
+
+OlahString.palindrome('kakak') // Output: true
+OlahString.palindrome('makan') // Output: false
+OlahString.palindrome('malam') // Output: true
+OlahString.ubahKapital('asep') // Output : Asep
+OlahString.ubahKapital('abduh') // Output: Abduh
+
+
+// --------------------------------------
+// Jawaban
+// --------------------------------------
+
+class OlahString {
+	palindrome (str) {
+        for (let i = 0; i < str.length /2; i++) {
+            if (str[i] !== str[str.length -1 - i]) return false
+        }
+        return true
+    }
+    ubahKapital (str) {
+        let newStr = str.split("")
+        newStr[0] = newStr[0].toUpperCase()
+        return newStr.join("")
+    }
+}
+
+const olahstring = new OlahString("")
+console.log(olahstring.palindrome('katak')); // Output: true
+console.log(olahstring.palindrome('sanbers')); // Output: false
+console.log(olahstring.ubahKapital('asep')); // Output : Asep
+console.log(olahstring.ubahKapital('abduh')); // Output: Abduh
